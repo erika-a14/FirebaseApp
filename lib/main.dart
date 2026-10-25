@@ -7,6 +7,7 @@ import 'login.dart';
 import 'welcome.dart';
 import 'notes.dart';
 import 'notifications.dart';
+import 'l10n/app_localizations.dart';
 
 
 Future<void> main() async {
@@ -23,15 +24,18 @@ class MyApp extends StatelessWidget {
  const MyApp({super.key});
  // This widget is the root of your application.
  @override
- Widget build(BuildContext context) {
+ // ignore: non_constant_identifier_names
+ Widget build(BuildContext context, dynamic AppLocalizations) {
    return MaterialApp(
      title: 'Firebase App',
      theme: ThemeData(primarySwatch: Colors.indigo),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+
      home: const AuthGate(),
    );
  }
 }
-
 
 class AuthGate extends StatelessWidget {
  const AuthGate({super.key});
@@ -56,6 +60,8 @@ class AuthGate extends StatelessWidget {
 class HomePage extends StatelessWidget {
  const HomePage({super.key});
 
+  get AppLocalizations => null;
+
 
  @override
  Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class HomePage extends StatelessWidget {
            ),
            ListTile(
              leading: const Icon(Icons.note),
-             title: const Text('Anotações'),
+            title: Text(AppLocalizations.of(context)!.notes),
              onTap: () async {
                Navigator.push(
                  context,
